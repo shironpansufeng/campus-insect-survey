@@ -57,5 +57,8 @@ export async function getPendingRecords() {
     throw new Error("读取待审核记录失败。");
   }
 
-  return (data ?? []) as InsectRecord[];
+  return (data ?? []).map((record) => ({
+    ...record,
+    uploader: Array.isArray(record.uploader) ? record.uploader[0] ?? null : null,
+  })) as InsectRecord[];
 }
